@@ -1,5 +1,6 @@
 import os
 import json
+import random
 
 media = {
     "id" : 1231313,
@@ -96,6 +97,25 @@ product = {
 products = []
 for i in range(0,10):
     products.append(product)
+    products[i]['product-id'] = (products[i]['product-id'] + i)
+    j = 0
+    for variant in products[i]['variants']:
+        variant['product-id'] = products[i]['product-id']
+        variant['variant-id'] = (variant['variant-id'] + i + j)
+        k=0
+        for subs in variant['subscriptions']:
+            subs["variant-id"] = variant['variant-id']
+            subs["product-id"] = variant['product-id']
+            subs["subscription-id"] = (subs["subscription-id"] + i + j + k)
+            subs["base-price"] = (subs["base-price"] + random.randint(0,1000))
+            subs["offer-price"] = (subs["base-price"] - random.randint(0,300))
+            subs["user-rating"] = (random.randint(0,25)/5)
+            subs["expert-rating"] = (random.randint(0,25)/5)
+            variant['subscriptions'][k] = subs
+            k=k+1
+        products[i]['variants'][j] = variant
+        j=j+1
+
 
 result = {
     "type": "products",
