@@ -1,5 +1,5 @@
 import os
-import ujson as json
+import json
 
 media = {
     "id" : 1231313,
@@ -7,7 +7,7 @@ media = {
     "variants" : [
         {
             "size" : "thumb", # thumb, low, normal, high, zoom,
-            "url" : "here_url",
+            "url" : "http://c2c.sulekhalive.com/mobiles/samsung/b3410/full/b3410.jpg",
             "height" : 200,
             "width" : 200,
             "dpi" : 120
@@ -92,3 +92,20 @@ product = {
     "description" : "blah",
     "features" : "blah",
 }
+
+products = []
+for i in range(0,10):
+    products.append(product)
+
+result = {
+    "type": "products",
+    "results": products,
+      "facets": [
+        {
+            "brand": ["samsung"]
+        }
+    ]
+}
+
+with open('prod.json', 'w') as outfile:
+    json.dump(result, outfile)
